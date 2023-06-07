@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/atotto/clipboard"
 	"strings"
 	"testing"
 )
@@ -54,12 +53,9 @@ func TestJsonToStruct(t *testing.T) {
 
 	for i, v := range c {
 		t.Run(fmt.Sprintf("Testing # %d", i), func(t *testing.T) {
-			JsonToStruct(v.json)
-			got, err := clipboard.ReadAll()
-			if err != nil {
-				t.Fatalf("Error %v", err)
-			}
-
+			converter := JsonToStruct()
+			converter.Run(v.json)
+			got := converter.Clipboard()
 			v1 := strings.ReplaceAll(v.expected, "\r", "")
 			v1 = strings.ReplaceAll(v1, "\n", "")
 			v1 = strings.ReplaceAll(v1, "\t", "")
