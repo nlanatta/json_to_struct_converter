@@ -17,7 +17,7 @@ func JsonToStruct() *jsonToStructConverter {
 }
 
 func (c *jsonToStructConverter) Run(data string) {
-	trimData := strings.Trim(data, "")
+	trimData := strings.ReplaceAll(data, " ", "")
 	err, result := c.jsonToGolan(trimData)
 	if err != nil {
 		return
